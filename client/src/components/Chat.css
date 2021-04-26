@@ -81,11 +81,6 @@
   padding: 8px 6px 8px 12px !important;
 }
 
-.chat__timestamp {
-  margin-left: 10px;
-  font-size: xx-small;
-}
-
 .chat__name {
   position: absolute;
   top: -15px;
@@ -113,9 +108,10 @@
   border: none;
   outline: none;
 }
-
-.chat__footer > form > button {
-  display: none;
+@media screen and (min-width: 550) {
+  .chat__footer > form > button {
+    display: none;
+  }
 }
 
 .chat__footer > .MuiSvgIcon-root {

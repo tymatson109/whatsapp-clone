@@ -7,7 +7,6 @@
   .loginPage__loginContainer {
     width: 400px;
     height: 600px;
-    /* background-color: rgb(219, 219, 219); */
     background-color: #ededed;
     box-shadow: -1px 4px 20px -6px rgba(0, 0, 0, 0.75);
     border-radius: 12px;

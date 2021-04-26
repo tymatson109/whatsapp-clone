@@ -14,6 +14,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import { actionTypes } from './Reducer';
 import DehazeIcon from '@material-ui/icons/Dehaze';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -32,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-const Chat = ({ message }) => {
+const Chat = ({ message, tablet }) => {
     const [input, setInput] = useState('')
 
     const [roomName, setRoomName] = useState('')
@@ -175,6 +176,14 @@ const Chat = ({ message }) => {
         })
     }
 
+    function sendButton() {
+        if (input && tablet) {
+            return true
+        } else {
+            return false
+        }
+    }
+
     return (
         <div className="chat"> 
             <div className="chat__modal">
@@ -282,9 +291,14 @@ const Chat = ({ message }) => {
                         placeholder="Type a message..."
                         type="text"
                     />
-                    <button onClick={sendMessage} type="submit">
-                        Send a message
-                    </button>
+                    {sendButton() === true
+                    ? (
+                        <IconButton type="submit" onClick={sendMessage}>
+                            <ArrowUpwardIcon />
+                        </IconButton>
+                    )
+                    : <button style={{display: 'none'}} type="submit" onClick={sendMessage}/>
+                    }
                 </form>
                 : <h1>Create a chat to send a message!</h1>
                 }

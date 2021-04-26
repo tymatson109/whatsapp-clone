@@ -82,7 +82,7 @@ const App = () => {
         }
 
     }, [messages, trigger, dispatch])
-    
+
     useEffect(() => {
         window.addEventListener("resize", updateMedia);
         return () => window.removeEventListener("resize", updateMedia);
@@ -107,7 +107,7 @@ const App = () => {
                         <Chat message={messages} />
                     </>  
                 ) 
-                : chat.name ? <Chat message={messages} /> : <SideBar className="app__sidebar" chat={chats} />
+                : chat.name ? <Chat message={messages} tablet={tablet}/> : <SideBar className="app__sidebar" chat={chats} />
                   
                 }
             </div>
