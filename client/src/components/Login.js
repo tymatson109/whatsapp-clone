@@ -18,7 +18,7 @@ const Login = ({register}) => {
             await axios.get(`/users/find`,  {params: {
                 username: validate(username)
             }}).then(response => {
-                console.log(response.data)
+                console.log(response)
                 if (response.data.username) {
                     if (password === response.data.password) {
                         dispatch({
