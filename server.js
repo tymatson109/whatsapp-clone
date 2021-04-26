@@ -42,11 +42,16 @@ if (process.env.NODE_ENV === "production") {
     // app.get('*', (req, res) => {
     //   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     // });
-    const root = path.join(__dirname, 'client', 'build')
-    app.use(express.static(root));
-    app.get("*", (req, res) => {
-        res.sendFile('index.html', { root });
-    })
+    // const root = path.join(__dirname, 'client', 'build')
+    // app.use(express.static(root));
+    // app.get("/*", (req, res) => {
+    //     res.sendFile('index.html', { root });
+    // })
+    app.use(express.static(path.join(__dirname, "client/build")));
+    app.get("/*", (_, res) => {
+     res.sendFile(path.join(__dirname, "client/build", "index.html"));
+    });
+
 }
 
 const db = mongoose.connection
