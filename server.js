@@ -6,6 +6,7 @@ import Messages from './dbMessages.js';
 import Chats from './dbChats.js';
 import cors from 'cors';
 import Users from './dbUsers.js'
+import path from 'path';
 
 //app config
 const app = express()
@@ -34,7 +35,6 @@ mongoose.connect(connection_url, {
 if (process.env.NODE_ENV === "production") {
     app.use(express.static('/client/build'))
 
-    import path from 'path';
     app.get('*', (req, res) => {
       res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
