@@ -29,7 +29,7 @@ app.use(express.json());
 app.use(cors())
 
 //DB config
-const connection_url = 'mongodb+srv://admin:6vmfnK3f2g2EfAZ@cluster0.6wkzi.mongodb.net/whatsapp-clone?retryWrites=true&w=majority'
+const connection_url = 'hey'
 mongoose.connect(connection_url, {
     useCreateIndex: true,
     useNewUrlParser: true,
