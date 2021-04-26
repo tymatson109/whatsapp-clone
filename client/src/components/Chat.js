@@ -13,6 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import { actionTypes } from './Reducer';
+import DehazeIcon from '@material-ui/icons/Dehaze';
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -163,6 +164,17 @@ const Chat = ({ message }) => {
         return chatId
     }
 
+    const toSideBar = () => {
+        dispatch({
+            type: actionTypes.SET_CHAT,
+            chat: {
+                name: null,
+                image: null,
+                id: null,
+            }
+        })
+    }
+
     return (
         <div className="chat"> 
             <div className="chat__modal">
@@ -208,6 +220,11 @@ const Chat = ({ message }) => {
                 </Modal>
             </div>
             <div className="chat__header">
+                <div className="chat__returnButton">
+                    <IconButton onClick={() => toSideBar()} >
+                        <DehazeIcon />
+                    </IconButton>
+                </div>
                 <Avatar src={chat?.image ||'https://i.pinimg.com/originals/e8/82/67/e88267a222de3b152d6aced055fc84a7.jpg'}/>
                 <div className="chat__headerInfo">
                     <h3>{chat?.name || chatZero?.name || 'Create a Chat!'}</h3>

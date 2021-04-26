@@ -4,6 +4,21 @@
   flex: 0.65;
 }
 
+@media screen and (max-width: 550px) {
+  .chat {
+    flex: 1;
+  }
+  .chat__header > .MuiAvatar-root {
+    margin-left: 10px;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  .chat__returnButton > .MuiIconButton-root {
+    display: none;
+  }
+}
+
 .chat__header {
   padding: 10px;
   display: flex;

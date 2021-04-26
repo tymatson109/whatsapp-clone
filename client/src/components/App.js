@@ -4,16 +4,16 @@ import Chat from './Chat';
 import SideBar from './SideBar';
 import Pusher from 'pusher-js';
 import axios from '../axios';
-import Login from './Login';
 import { useStateValue } from './StateProvider';
 import { actionTypes } from './Reducer';
 import LoginPage from './LoginPage';
 
 const App = () => {
-    const [{user}, dispatch] = useStateValue()
+    const [{user, chat}, dispatch] = useStateValue()
     const [messages, setMessages] = useState([])
     const [chats, setChats] = useState([])
     const [trigger, setTrigger] = useState(false)
+    const [tablet, setTablet] = useState(false)
 
     useEffect(() => {
         const requestData = async () => {
@@ -82,13 +82,34 @@ const App = () => {
         }
 
     }, [messages, trigger, dispatch])
+    
+    useEffect(() => {
+        window.addEventListener("resize", updateMedia);
+        return () => window.removeEventListener("resize", updateMedia);
+      });
+
+      const updateMedia = () => {
+        if (window.innerWidth < 550) {
+            setTablet(true)
+        } else {
+            setTablet(false)
+        }
+      }
 
     return (
         <div className="app">
             {user.username 
             ? <div className="app__body">
-                <SideBar chat={chats} />
-                <Chat message={messages} />
+                {!tablet
+                ? (
+                    <>
+                        <SideBar className="app__sidebar" chat={chats} />
+                        <Chat message={messages} />
+                    </>  
+                ) 
+                : chat.name ? <Chat message={messages} /> : <SideBar className="app__sidebar" chat={chats} />
+                  
+                }
             </div>
             : <LoginPage />
             }

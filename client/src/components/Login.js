@@ -4,7 +4,6 @@ import './Login.css';
 import { useStateValue } from './StateProvider';
 import { actionTypes } from './Reducer';
 import { validate } from './Validate';
-import { Email } from '@material-ui/icons';
 
 const Login = ({register}) => {
     const [username, setUsername] = useState('')
