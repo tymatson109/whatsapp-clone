@@ -8,6 +8,10 @@ import cors from 'cors';
 import Users from './dbUsers.js'
 import path from 'path';
 
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 //app config
 const app = express()
 const PORT = process.env.PORT || 9000
