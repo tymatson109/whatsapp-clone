@@ -16,14 +16,6 @@ const __dirname = path.dirname(__filename);
 const app = express()
 const PORT = process.env.PORT || 9000
 
-const pusher = new Pusher({
-    appId: "1190873",
-    key: "8019a7ed72d7c9adc99c",
-    secret: "1d01f94b719fa2eb9950",
-    cluster: "us3",
-    useTLS: true
-  });
-
 //middlewares
 app.use(express.json());
 app.use(cors())
