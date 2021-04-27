@@ -52,6 +52,20 @@ const Chat = ({ message, tablet }) => {
             type: actionTypes.SET_CHAT,
             chat: chatZero
         })
+        const requestChats = async () => {
+            await axios.get('/chats/sync')
+                .then(response => {
+                    dispatch({
+                        type: actionTypes.SET_CHATLIST,
+                        chatList: response.data
+                    })
+                    dispatch({
+                        type: actionTypes.SET_CHATZERO,
+                        chatZero: response.data.filter(chat => chat.members.memberOne === user.username || chat.members.memberTwo === user.username)[0]
+                    })
+                })
+        }
+        requestChats()
     }, [])
 
     const sendMessage = (e) => {

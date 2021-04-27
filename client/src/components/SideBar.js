@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import './SideBar.css';
 import ChatIcon from '@material-ui/icons/Chat';
 import DonutLargeIcon from '@material-ui/icons/DonutLarge';
@@ -25,27 +25,28 @@ const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(2, 4, 3),
       outline: 'none',
       width: '300px',
-      height: '200px',
+      height: '230px',
 
     },
   }));
 
 const SideBar = ({ chat }) => {
-    const [{user}, dispatch] = useStateValue()
+    const [{user, chatList}, dispatch] = useStateValue()
     const [settingsOpen, setSettingsOpen] = useState(null)
     const [modalOpen, setModalOpen] = useState(false)
     const [imageModal, setImageModal] = useState(false)
     const [profileImage, setProfileImage] = useState('')
     const [chatInputName, setChatInputName] = useState('')
     const [chatInputImage, setChatInputImage] = useState('')
+    const [chatInputMember, setChatInputMember] = useState('')
     const classes = useStyles();
 
-    //Chat data
-    const [chatsList, setChatsList] = useState('Loading...')
+    // //Chat data
+    // const [chatsList, setChatsList] = useState('Loading...')
 
-    useEffect(() => {
-        setChatsList(chat)
-    }, [chat])
+    // useEffect(() => {
+    //     setChatsList(chat)
+    // }, [chat])
 
     function isOpen() {
         if (settingsOpen) {
@@ -70,11 +71,16 @@ const SideBar = ({ chat }) => {
         axios.post('/chats/new', {
             name: chatInputName,
             image: chatInputImage,
+            members: {
+                memberOne: user.username,
+                memberTwo: chatInputMember
+            }
         })
 
         setModalOpen(false)
         setChatInputImage('')
         setChatInputName('')
+        setChatInputMember('')
     }
 
     const addProfileImage = (e) => {
@@ -159,6 +165,10 @@ const SideBar = ({ chat }) => {
                             <h4>Image: </h4>
                             <input value={chatInputImage} onChange={e => setChatInputImage(e.currentTarget.value)}/>
                         </div>
+                        <div className="sidebar__modalInput">
+                            <h4>To:</h4>
+                            <input value={chatInputMember} onChange={e => setChatInputMember(e.currentTarget.value)} />
+                        </div>
                         <button type="submit" onClick={addChat} style={{display: 'none'}} />
                     </form>
                 </div>
@@ -195,8 +205,11 @@ const SideBar = ({ chat }) => {
                 </div>
             </div>
             <div className="sidebar__chat">
-                {chatsList[0]?.name
-                    ? chatsList.map(({name, image, _id}) => {
+                {chatList[0]?.name
+                    ? chatList.filter(chat => 
+                        chat.members.memberOne === user.username || 
+                        chat.members.memberTwo === user.username)
+                        .map(({name, image, _id}) => {
                         return (
                             <SidebarChat id={_id} key={_id} roomname={name} image={image}/>
                         )

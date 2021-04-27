@@ -16,12 +16,20 @@ const __dirname = path.dirname(__filename);
 const app = express()
 const PORT = process.env.PORT || 9000
 
+const pusher = new Pusher({
+    appId: "1190873",
+    key: "8019a7ed72d7c9adc99c",
+    secret: "1d01f94b719fa2eb9950",
+    cluster: "us3",
+    useTLS: true
+  });
+
 //middlewares
 app.use(express.json());
 app.use(cors())
 
 //DB config
-const connection_url = 'hey'
+const connection_url = 'mongodb+srv://admin:6vmfnK3f2g2EfAZ@cluster0.6wkzi.mongodb.net/whatsapp-clone?retryWrites=true&w=majority'
 mongoose.connect(connection_url, {
     useCreateIndex: true,
     useNewUrlParser: true,
@@ -29,16 +37,6 @@ mongoose.connect(connection_url, {
 })
 
 if (process.env.NODE_ENV === "production") {
-    // app.use('/static', express.static(path.join(__dirname, 'client/build')));
-
-    // app.get('*', (req, res) => {
-    //   res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-    // });
-    // const root = path.join(__dirname, 'client', 'build')
-    // app.use(express.static(root));
-    // app.get("/*", (req, res) => {
-    //     res.sendFile('index.html', { root });
-    // })
     app.use(express.static(path.join(__dirname, "client/build")));
     app.get("/", (_, res) => {
      res.sendFile(path.join(__dirname, "client/build", "index.html"));
@@ -168,6 +166,7 @@ app.post('/chats/delete', (req, res) => {
 
 app.post('/chats/new', (req, res) => {
     const item = req.body
+    console.log(req.body)
     Chats.create(item, (err, data) => {
         err
         ? res.status(500).send(err)

@@ -6,13 +6,15 @@ export const initialState = {
         image: null
     },
     chat: {},
-    chatZero: {}
+    chatZero: {},
+    chatList: []
 }
 
 export const actionTypes = {
     SET_USER: "SET_USER",
     SET_CHAT: "SET_CHAT",
-    SET_CHATZERO: "SET_CHATZERO"
+    SET_CHATZERO: "SET_CHATZERO",
+    SET_CHATLIST: "SET_CHATLIST"
 }
 
 const reducer = (state, action) => {
@@ -32,6 +34,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 chatZero: action.chatZero
+            }
+        case actionTypes.SET_CHATLIST:
+            return {
+                ...state,
+                chatList: action.chatList
             }
         default: 
             return state;
