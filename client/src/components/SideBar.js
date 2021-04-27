@@ -40,14 +40,7 @@ const SideBar = ({ chat }) => {
     const [chatInputImage, setChatInputImage] = useState('')
     const [chatInputMember, setChatInputMember] = useState('')
     const classes = useStyles();
-
-    // //Chat data
-    // const [chatsList, setChatsList] = useState('Loading...')
-
-    // useEffect(() => {
-    //     setChatsList(chat)
-    // }, [chat])
-
+    
     function isOpen() {
         if (settingsOpen) {
             return true;
