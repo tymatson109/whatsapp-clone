@@ -159,7 +159,7 @@ const Chat = ({ message, tablet }) => {
 
     function getChatId() {
         var chatId
-        if (chat.id) {
+        if (chat?.id) {
             chatId = chat.id
             return chatId
         }
